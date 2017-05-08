@@ -1,0 +1,28 @@
+let y = 0
+let dify = 0
+let difx = 0
+basic.forever(() => {
+    dify = input.rotation(Rotation.Roll) / -5
+    if (dify > 2) {
+        dify = 2
+    }
+    if (dify < -2) {
+        dify = -2
+    }
+    difx = input.rotation(Rotation.Pitch) / -5
+    if (difx > 2) {
+        difx = 2
+    }
+    if (difx < -2) {
+        difx = -2
+    }
+    basic.clearScreen()
+    led.plot(2 + dify, 2 + difx)
+    basic.pause(10)
+})
+input.onGesture(Gesture.Shake, () => {
+
+})
+difx = 3
+y = 2
+

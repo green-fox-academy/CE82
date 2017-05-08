@@ -1,0 +1,19 @@
+let index2 = 0
+let str = ""
+let dec = 0
+serial.onDataReceived(serial.delimiters(Delimiters.Fullstop), () => {
+    dec = 0
+    str = serial.readString()
+    str = str.substr(0, str.length - 1)
+    index2 = str.length - 1
+    for (let index = 0; index <= str.length; index++) {
+        if (parseInt(str.substr(index, 1)) == 1) {
+            dec += Math.pow(2, index2)
+        }
+        index2 += -1
+    }
+    serial.writeNumber(dec)
+    serial.writeLine("")
+})
+serial.writeLine("start")
+

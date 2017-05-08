@@ -1,0 +1,26 @@
+let acc = 0
+basic.forever(() => {
+    acc = input.acceleration(Dimension.Strength)
+    if (acc > 1200 && input.buttonIsPressed(Button.B)) {
+        basic.showLeds(`
+            . . # . .
+            . . # . .
+            . . # . .
+            . . . . .
+            . . # . .
+            `)
+    } else {
+        basic.showLeds(`
+            . . . . .
+            . . . . .
+            . . # . .
+            . . . . .
+            . . . . .
+            `)
+    }
+})
+input.onGesture(Gesture.Shake, () => {
+
+})
+input.setAccelerometerRange(AcceleratorRange.EightG)
+

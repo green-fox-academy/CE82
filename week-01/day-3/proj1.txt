@@ -1,0 +1,79 @@
+let str_bin = ""
+let hatvany = 0
+let index2 = 0
+let str = ""
+let bin = 0
+let state = 0
+let dec = 0
+serial.onDataReceived(serial.delimiters(Delimiters.Fullstop), () => {
+    dec = 0
+    bin = 0
+    str = serial.readString()
+    if (str == "-B2D.") {
+        state = 1
+        serial.writeLine("-B2D: binaris szamot kerek:")
+    }
+    if (str == "-D2B.") {
+        state = 2
+        serial.writeLine("-D2B: decimalis szamot kerek:")
+    }
+    if (state == 1 && (str != "-D2B." && str != "-B2D.")) {
+        str = str.substr(0, str.length - 1)
+        index2 = str.length - 1
+        for (let index = 0; index <= str.length; index++) {
+            if (parseInt(str.substr(index, 1)) == 1) {
+                dec += Math.pow(2, index2)
+            }
+            index2 += -1
+        }
+        serial.writeLine(str)
+        serial.writeNumber(dec)
+        serial.writeLine("")
+    }
+    if (state == 2 && (str != "-D2B." && str != "-B2D.")) {
+        serial.writeString("1 ")
+        dec = parseInt(str)
+        index2 = str.length - 2
+        hatvany = 0
+        while (Math.pow(2, hatvany) < dec) {
+            hatvany += 1
+            serial.writeNumber(Math.pow(2, hatvany))
+            serial.writeString(", ")
+        }
+        if (Math.pow(2, hatvany) > dec) {
+            hatvany += -1
+        }
+        str_bin = ""
+        while (dec != 0 || hatvany != -1) {
+            serial.writeLine("2^hatvany")
+            serial.writeNumber(hatvany)
+            serial.writeLine("")
+            serial.writeString("kivon:")
+            serial.writeNumber(Math.pow(2, hatvany))
+            serial.writeString(" ebbol: ")
+            serial.writeNumber(dec)
+            serial.writeLine("")
+            basic.pause(1000)
+            if (dec >= Math.pow(2, hatvany)) {
+                dec += -1 * Math.pow(2, hatvany)
+                str_bin = "" + str_bin + "1"
+            } else {
+                str_bin = "" + str_bin + "0"
+            }
+            if (Math.pow(2, hatvany) > dec) {
+                hatvany += -1
+            }
+        }
+        if (str_bin == "") {
+            str_bin = "0"
+        }
+        serial.writeLine("decimal, bin: ")
+        serial.writeLine(str)
+        serial.writeLine(str_bin)
+        serial.writeLine("")
+    }
+})
+serial.writeLine("parancsok: -B2D -D2B, kuldes: \".\"")
+state = 2
+str = ""
+

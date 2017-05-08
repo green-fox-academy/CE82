@@ -1,0 +1,6 @@
+let s = ""
+basic.forever(() => {
+    s = "3a"
+    basic.showNumber(parseInt(s))
+})
+

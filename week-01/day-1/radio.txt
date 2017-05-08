@@ -1,0 +1,6 @@
+let receivedString = ""
+radio.onDataPacketReceived(({receivedString}) => {
+    basic.showString(receivedString)
+})
+radio.setGroup(27)
+
