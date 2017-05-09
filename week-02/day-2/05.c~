@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main() {
+	int e = 8;
+	e=e^3;
+	// please cube of e's value
+	printf("%d\n",e);
+	return 0;
+}
+
+//printf("%d\n",b);
