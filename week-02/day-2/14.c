@@ -13,7 +13,7 @@ int main() {
 	// Try again with different datatype
 	uint16_t result_16 = number + 23;
 	// Check the result with printf
-    printf("%d\n",result_16);
+	printf("%d\n",result_16);
 
 	// What happened and why?
 	//túlcsordult
