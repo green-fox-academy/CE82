@@ -1,13 +1,17 @@
 // TODO: Include needed header files
-
+#include <string.h>
+#include <stdio.h>
+#include <stdint.h>
+#include "another_file.h"
 
 void StringManipulator(char* str){
     uint32_t str_len = strlen(str);
+    
     for(uint32_t i = 0; i < str_len; i++) {
         str[i] -= 1;
     }
 }
 
-void IntegerManipulator(int* num){
-    *num = num - an_example_number;
+void IntegerManipulator(int*num){
+    *num = *num - an_example_number;//a második num eredetileg csillag nélkül állt. Sztem ez hiba.
 }

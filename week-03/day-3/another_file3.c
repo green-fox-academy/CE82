@@ -1,5 +1,8 @@
 // TODO: Include needed header files
-#include<string>
+#include <string.h>
+#include <stdio.h>
+#include <stdint.h>
+#include "another_file.h"
 
 void StringManipulator(char* str){
     uint32_t str_len = strlen(str);

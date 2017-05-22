@@ -1,0 +1,19 @@
+The ATmega168PB is connected to a PC through an UART-to-USB converter. The MCU's clock frequency is 8MHz. On the ATmega168PB the USART peripheral is set to 8N1 frame format, the U2X0 bit is set to 0, the UBBRH register is zero, the UBBRL register has a value of 103.
+What baud rate have to be set on the terminal program on the PC? [1p]
+Your answer:
+
+4800
+
+
+What is the bit time at that baud rate? [1p]
+Your answer:
+
+1/(4800*10)
+
+What is the bit sequence on the MCU's TX pin when an 'a' character is sent? [2p]
+Your answer:
+
+a:61h: 0110 0001
+0011000011
+
+[add your answer here, the bit's are read left-to-right, for example in '1100' the first bit is '1', the last bit is '0']
