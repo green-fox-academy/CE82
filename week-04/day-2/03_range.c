@@ -1,33 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
-int abs(x) {
-	int a=x;
-	if(x<0) a*=-1;
+int abs(x) 
+{
+	int a = x;
+	if(x < 0) 
+		a* = -1;
 	return a;
 }
-int size(int to, int from, int step){
-	return abs((to-from)/step);
+int size(int to, int from, int step)
+{
+	return abs((to - from) / step);
 }
-int* range(int from, int to,int step) {	
-	int*re = (int*) calloc(size(to, from,step) , sizeof(int));
-	int*arr=re;
-	if(to>=0){
-		for (int i=from; i<to;i+=step){
-			*arr=i;
+int* range(int from, int to,int step) 
+{	
+	int*re = (int*) calloc(size(to, from,step), sizeof (int));
+	int*arr = re;
+	if(to >= 0){
+		for (int i = from; i < to; i += step){
+			*arr = i;
 			arr++;
 		}
 	}else {
-		for (int i=from; i>to;i+=step){
-			*arr=i;
+		for (int i = from; i > to;i += step){
+			*arr = i;
 			arr++;
 		}
 	}
 	return re;
 }
 int main() {	
-	int*arr =range(1, -8, -3);	
-	int*p=arr;
-	for (int i=0;i<size(1, -8, -3);i++){
+	int *arr = range(1, -8, -3);	
+	int *p = arr;
+	for (int i=0; i<size(1, -8, -3); i++){
 		printf("%d ",*arr);
 		arr++;
 	}

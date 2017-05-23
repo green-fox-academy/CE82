@@ -16,11 +16,11 @@
 double* under_average(double *a, int l)
 {
 	double *arr1, *arr2, *arr3;
-	arr1=a;
-	double avg=0;
+	arr1 = a;
+	double avg = 0;
 	//kiszámolom az átlagot
-	for (int i=0; i<l;i++) {
-		avg+=*arr1;
+	for (int i=0; i < l;i++) {
+		avg += *arr1;
 		arr1++;
 	}
 	avg/=l;
@@ -43,10 +43,10 @@ int main()
 {
 	double arr[] = {1, 3, 2, 0.5};
 	double *arr2, *arr1;
-	arr1=&arr;
-	int l=4;
+	arr1 = &arr;
+	int l = 4;
 	arr2 = under_average(arr1, l);
-	for (int i=0; i<l;i++) {
+	for (int i = 0; i < l;  i++) {
 		printf("%.3f \n", *arr2);
 		arr2++;
 	}

@@ -13,8 +13,9 @@ struct House {
     int rooms;
     int area;
 };
-void worth(struct House *h){
-	if(h->price < 400* h->area ){
+void worth(struct House *h)
+{
+	if(h->price < 400 * h->area ){
 		printf("%s %d\n","worth to buy for this price:",h->price);
 	}else {
 		printf("%s %d\n","not worth to buy for this price:",h->price);
@@ -30,11 +31,12 @@ void worth(struct House *h){
 // Create a function that takes an array of houses (and it's length), and counts the
 // houses that are worth to buy.
 
-int main() {
+int main() 
+{
 	struct House house={"address", 5000,2,10};
 	
 	//struct Pirate* p=pirates;
-	struct House* hptr= &house;
+	struct House* hptr = &house;
 	worth(hptr);
 	return 0;
 }

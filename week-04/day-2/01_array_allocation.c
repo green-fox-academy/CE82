@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
+int main() 
+{
 	int *pointer = NULL;
 		
   // TODO:
@@ -10,9 +11,9 @@ int main() {
 	pointer = (int*) calloc(5, 5*sizeof(int));
 	int i=0;
 	
-	for (i=0;i<5;i++) {
-		*pointer=i;
-		printf(" %d\n",*pointer);	
+	for (i=0; i<5; i++) {
+		*pointer = i;
+		printf(" %d\n", *pointer);	
 		pointer++;	
 	}
 	free(pointer);

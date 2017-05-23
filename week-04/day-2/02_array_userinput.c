@@ -5,7 +5,8 @@
 // Please create a program that asks for a count when it starts.
 // It should ask for a number count times, then it shoud print the average of the numbers.
 // It should delete any dynamically allocated resource before the program exits.
-int main() {
+int main() 
+{
 	int num, i, *ptr, sum = 0;
 
     printf("Enter number of elements: ");
@@ -21,8 +22,4 @@ int main() {
     printf("average = %.2f\n", (float)sum/num);
     free(ptr);
     return 0;
-
-
-
-  return 0;
 }

@@ -14,13 +14,13 @@ char *conc(char *dest, const char *source)
 	}
 	//most c dest utolsó karakterére mutat, ahova írni lehet
 	char *c2;
-	c2=source;
+	c2 = source;
 	while (*c2!='\0') {
-		*c=*c2;
+		*c = *c2;
 		c++;
 		c2++;
 	}
-	*c2='\0';
+	*c2 = '\0';
 	return dest;
 }
 

@@ -17,13 +17,13 @@ point_t *construct(int x, int y)
 double distance (point_t *p1, point_t *p2)
 {
 	int distx = p1->x - p2->x;
-	if(distx<0)
-		distx*=-1;
+	if(distx < 0)
+		distx* = -1;
 	int disty = p1->y - p2->y;
-	if(disty<0)
-		disty*=-1;
+	if(disty < 0)
+		disty* = -1;
 	
-	return sqrt((double)distx*distx+disty*disty);
+	return sqrt((double)distx * distx + disty * disty);
 }
 // TODO:
 // Create a function the constructs a Point (returns a pointer to a new point)
@@ -34,8 +34,8 @@ double distance (point_t *p1, point_t *p2)
 
 int main()
 {
-	point_t *p1 =construct(10, 20);
-	point_t *p2 =construct(11, 19);
+	point_t *p1 = construct(10, 20);
+	point_t *p2 = construct(11, 19);
 	printf("%.3f \n", distance(p1, p2));
     return 0;
 }

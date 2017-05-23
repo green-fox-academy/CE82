@@ -7,14 +7,12 @@ struct Computer {
     int bits;
 };
 
-int main() {
+int main() 
+{
     struct Computer computer = {3.2, 8, 32};
-
     //TODO: Change the bits to 64
-    computer.bits=64;
-
+    computer.bits = 64;
     //TODO: print out the structure members
-    printf("%.3f %d %d\n",computer.cpu_speed_GHz,computer.ram_size_GB,computer.bits);
-
+    printf("%.3f %d %d\n", computer.cpu_speed_GHz,computer.ram_size_GB,computer.bits);
     return 0;
 }

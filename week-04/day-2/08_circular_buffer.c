@@ -27,15 +27,15 @@ CircularBuffer *konstr(int *arr, int l)
 {
 	CircularBuffer *cb;
 	int *a;
-	a=arr;
-	cb=malloc(sizeof (CircularBuffer));
-	cb->len=l;
-	cb->start=calloc(l, sizeof (int));
+	a = arr;
+	cb = malloc(sizeof (CircularBuffer));
+	cb->len = l;
+	cb->start = calloc(l, sizeof (int));
 	cb->write = cb->start;
 	int *ptr;
 	ptr = cb->write;
-	for (int i=0; i<l; i++){
-		*ptr=*a;
+	for (int i=0; i<l; i++) {
+		*ptr = *a;
 		//printf(" plus ");
 		ptr++;
 		a++;
@@ -71,7 +71,7 @@ CircularBuffer *resize(CircularBuffer *cb, int newsize)
 CircularBuffer *constr_even(CircularBuffer *cb)
 {
 	CircularBuffer *new_cb;
-	new_cb=malloc(sizeof (CircularBuffer));
+	new_cb = malloc(sizeof (CircularBuffer));
 	
 	//számolok
 	int *ptr, *a;
@@ -85,7 +85,7 @@ CircularBuffer *constr_even(CircularBuffer *cb)
 	}
 	//printf("even: %d\n",new_cb->len);
 	//megvan a hossz. Most létrehozom
-	new_cb->start=calloc(new_cb->len, sizeof (int));
+	new_cb->start = calloc(new_cb->len, sizeof (int));
 	new_cb->write = new_cb->start;
 	new_cb->read = new_cb->start;
 	new_cb->end = new_cb->start + new_cb->len;
@@ -93,10 +93,10 @@ CircularBuffer *constr_even(CircularBuffer *cb)
 	//bemásolom az even értékeket
 	ptr = cb->start;
 	a = new_cb->start;
-	for (int i=0; i<cb->len; i++){
+	for (int i=0; i < cb->len; i++){
 		//printf("-- %d", *ptr);
 		if(*ptr % 2 == 0){
-			*a=*ptr;
+			*a = *ptr;
 			a++;
 			//printf(" plus ");
 		}			
@@ -111,10 +111,10 @@ CircularBuffer *constr_even(CircularBuffer *cb)
 int main() 
 {	
 	int arr[]={1,3,2,6,9,2,2,2}, *a;
-	a=&arr;
+	a = &arr;
 	CircularBuffer *cb;
-	cb=konstr(a, 8);	
-	for(int i=0; i<8; i++) {
+	cb = konstr(a, 8);	
+	for(int i = 0; i<8; i++) {
 		printf("%d ",*a);
 		a++;
 	}

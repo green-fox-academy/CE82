@@ -9,7 +9,7 @@ typedef struct {
     int value;
 }Grade;
 
-typedef struct{
+typedef struct {
     char name[128];
     int age;
     Grade* grades;
@@ -25,9 +25,9 @@ Student* konstrukt(int kor, char*nev)
 {
 	Student* s=(Student*) malloc(sizeof(Student));
 	strcpy(s->name,nev);
-	s->age=kor;
+	s->age = kor;
 	s->grades = (Grade* )calloc(5, sizeof(Grade)) ;   
-	s->grade_count=0;
+	s->grade_count = 0;
 	return s;
 }
 // TODO:
@@ -51,7 +51,7 @@ Subject* worstgrade(Student *stu)
 	int worst = 6;
 	Subject *sub, bla;
 	Grade *gr = stu->grades;
-	for (int i=0; i< stu->grade_count; i++){
+	for (int i=0; i< stu->grade_count; i++) {
 		//printf("targy: jegy: %d \n",gr->value);
 		printf("valami "); //fflush(stdio);
 		if(gr->value < worst) {

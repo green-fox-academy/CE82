@@ -23,12 +23,13 @@ struct NotBitfield{
     uint8_t boolean_value_8;
 };
 
-int main() {
+int main() 
+{
     // TODO:
     // Print out the size of both structs (use sizeof() function)
     struct Bitfield b;
-	printf("%d\n",sizeof(b));
+	printf("%d\n", sizeof (b));
 	struct NotBitfield b2;
-	printf("%d\n",sizeof(b2));
+	printf("%d\n", sizeof (b2));
     return 0;
 }

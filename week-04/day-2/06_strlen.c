@@ -10,7 +10,7 @@ int len(char *str)
 	char *c;
 	c = str;
 	int l = 0;
-	while (*c!='\0') {
+	while (*c != '\0') {
 		c++;
 		l++;
 	}
