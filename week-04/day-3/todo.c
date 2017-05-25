@@ -65,11 +65,13 @@ int add (char *p)
 	t_task *tmpt;
 	tmpt = malloc(sizeof (t_task));
 	char *ic;
-	ic = 0;
+	ic = malloc(sizeof(char));
+	*ic = '0';
 	
 	if (tlist->start == NULL) {//ha ez az első elem
 		tlist->start = tmpt;
 		tlist->start->szoveg = tmp1;
+		tlist->start->ischecked = ic;
 		tlist->start->next = NULL;
 		tlist->end = tlist->start;		
 		printf("added first\n");
@@ -77,6 +79,7 @@ int add (char *p)
 		tlist->end->next = tmpt; //az utolsó írott struct next-je mutasson az új elemre
 		tlist->end = tmpt; //ez után az uccsó vektora mutasson rá
 		tlist->end->szoveg = tmp1;
+		tlist->end->ischecked = ic;
 		tlist->end->next = NULL;
 		printf("added\n");
 	}
@@ -92,9 +95,15 @@ void list ()
 	int i = 0;
 	t_task *tp;
 	tp = tlist->start;
+	char *c, ch;
 	printf("List by number\n===========\nNum | Tasks\n");
 	while (tp != NULL) {
-		printf("%d\t%s\n",i,tp->szoveg );
+		c = tp->ischecked;
+		if (*c == '0')
+			ch = ' ';
+		else if (*c == '1')
+			ch = 'x';
+		printf("%d\t-[%c] %s\n",i,ch,tp->szoveg );
 		tp = tp->next;
 		i++;
 	}
@@ -110,6 +119,8 @@ void empty ()
 		while (tp != NULL) {
 			tp2 = tp->next;
 			free(tp->szoveg);
+			free(tp->ischecked);
+			tp->ischecked = NULL;
 			tp->szoveg = NULL;
 			tp->next = NULL;
 			free(tp);
@@ -144,7 +155,56 @@ int is_digit (char c){
 		return 1;
 	return 0;
 }
-
+//----------------------------------------------------------
+void check(char *p)
+{
+	//p az első ' '-re mutat
+	int no = 0; 
+	char *p2;
+	//megkeresem az első számot, vagy a szöveg végét
+	while (!is_digit(*p) && *p != '\0') {
+		p++;
+		if (*p != ' ' && !is_digit(*p)){
+			//számot keresek, előtte csak space lehet, egyéb kari nem
+			printf("Unable to check: Index is not a number\n");
+			return;
+		}
+	}
+	//megvan az első számjegy, p arra mutat
+	//olvasunk végjelig, az eredményt számmá alakítjuk
+	int power = strlen(p)-1;
+	int elsojegy = 1;
+	while (*p != '\0') {
+		if (!is_digit(*p)) { //csak számjegy lehet benne
+			printf("Unable to check: Index is not a number\n");
+			return;
+		}
+		if (*p == '0' && (*(p+1) != '\0') && elsojegy) {
+			printf("Unable to check: Index is not a number\n");
+			elsojegy = 0;
+			return;
+		}
+		//erre biztosan van jó beépített függvény, de most így
+		no += (*p - 48) * pow(10, power);
+		p++;
+		power--;	
+	}	
+	t_task *t1;
+	t1 = tlist->start;
+	for (int i = 0; i < no; i++) {		
+		if (t1->next!=NULL) {
+			t1 = t1->next;
+		} else {
+			printf ("Unable to check: Index is out of bound \n");
+			return;
+		}		
+	}//most t1 a checkelendő elemre mutat
+	char *ic;
+	ic = t1->ischecked;
+	if (*ic == '0') *ic = '1';
+		else *ic = '0';
+		
+}
 //----------------------------------------------------------
 void rm(char *p)
 {
@@ -253,27 +313,41 @@ int read (char *p)
 		//mielőtt olvasok, felszabadítom a lefoglalt memóriát
 		empty();
 		//olvasok:
-		char buf[255], *tmp2;
+		char buf[255], *tmp2, *ic;
 		memset (buf,'\0',255);		
 		t_task *ttask;
 		ttask = malloc(sizeof (t_task));
-		while (fgets(buf, 255, (FILE*)fp) != NULL){ 			
-			if (tlist->start != NULL){
-				ttask = tlist->end;
-				tlist->end = tlist->end->next;
+		int r = 0;
+		while (fgets(buf, 255, (FILE*)fp) != NULL){ 	
+			if (r == 0) { 		
+				if (tlist->start != NULL){
+					ttask = tlist->end;
+					tlist->end = tlist->end->next;
+				}		
+				tlist->end = malloc(sizeof (t_task));
+				if (tlist->start != NULL)
+					ttask->next = tlist->end;			
+			
+				tmp2 =  malloc(255* sizeof(char));
+				strcpy(tmp2, buf);
+				memset (buf,'\0',255);		
+				tmp2 = clrstr(tmp2);
+				tlist->end->szoveg = tmp2;		
+				tlist->end->next = NULL;	
+				if (tlist->start == NULL) {						
+					tlist->start = tlist->end;				
+				}
+				r = 1;
+				printf(" 0 ");
+			} else if (r == 1) {
+				printf(" 1 ");
+				ic =  malloc(1);
+				*ic = buf[0];
+				tlist->end->ischecked = ic;
+				r = 0;
 			}
-			tlist->end = malloc(sizeof (t_task));
-			if (tlist->start != NULL)
-				ttask->next = tlist->end;
-			tmp2 =  malloc(255* sizeof(char));
-			strcpy(tmp2, buf);
-			memset (buf,'\0',255);		
-			tmp2 = clrstr(tmp2);
-			tlist->end->szoveg = tmp2;		
-			tlist->end->next = NULL;	
-			if (tlist->start == NULL) {						
-				tlist->start = tlist->end;				
-			}
+			
+			
 			memset (buf,'\0',255);		
 		}
 		fclose(fp);
@@ -332,11 +406,13 @@ int write(char *p)
 	int i = 0;
 	t_task *tp;
 	tp = tlist->start;
-	char *string;
+	char *string, *c;
 
 	while (tp != NULL) {
 		string = tp->szoveg;
 		fprintf(fp,"%s\n",string);
+		c = tp->ischecked;
+		fprintf(fp,"%c\n",*c);
 		tp = tp->next;
 		i++;
 	}
@@ -357,6 +433,8 @@ int parancsertelmezo (char *parancs)
 	 		add(p);
 	 	} else if (*p == 'l') {
 	 		list();		 
+		} else if (*p == 'c') {
+	 		check(p);		 
 		} else if (*p == 'e') {
 	 		emptylist();		 
 		} else if (*p == 'w') {
@@ -380,7 +458,8 @@ int parancsertelmezo (char *parancs)
 	 		} 
 		}
 	 } else {
-	 	printf("commands starts with '-'\n");
+	 	printf("commands starts with '-'\n"); 
+	 	fflush (stdout);
 	 	return 1;
 	 }
 	 
