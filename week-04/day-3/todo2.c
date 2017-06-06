@@ -141,82 +141,11 @@ void sort_pr()
 		printf ("tasklist has one element, there is nothing to sort\n");
 		return;
 	} else {//legalább két elem van	
-		int maxpri;		
-		while (i->next != NULL) { //ha i az utolsó, biztos nincs utána nagyobb
-			int cnt = 0;
-			maxpri = i->pri;	
-			printf("i pri: %c \n",i->pri);
-			max = i; //ha talál nagyobbat, arra lép
-			elozo_max = elozo_i;
-			j = i->next;
-			elozo_j = i;
-			while (j != NULL) { //i-től végig megy
-				cnt++;
-				printf("  j pri: %c elo_j pri %c ",j->pri, elozo_j->pri);
-				//char ch;
-				//scanf("%c",&ch);
-				if (maxpri < j->pri) {
-					maxpri = j->pri;
-					elozo_max = elozo_j;
-					max = j; 
-					printf (" max ");
-				}
-				printf ("\n");
-				elozo_j = j;
-				j = j->next;			
-			}
-			if (i != max) {	
-				printf("csere: %c %c  \n",i->pri, max->pri);	
-				if (i == tlist->start){						
-					tlist->start = max;
-				} 
-				elozo_max->next = max->next; 
-				//ezzel a max előttit a max utánihoz linkelem, max kikerül	a sorból	
-				//ha max az utolsó volt, elozo_max NULLba mutat	
-				max->next = i; //max i elé megy közvetlenül, rá mutat
-				//ami i-re mutatott, az mutasson max-ra
-				elozo_i->next = max;
-				//mivel max van i előtt, mostantól ez legyen az előzménye
-				elozo_i = max;	
-				
-				//és i? i hova fog mutatni? ha már nincs előtte semmi?
-				if (cnt ==1) { //az utolsó elemmel cseréltem.
-					i->next = NULL;
-				}
-								
-				t_task *task_temp;
-				task_temp = i->next;
-				printf("csere eredmenye: i:%c i->next:%c  \n",i->pri, task_temp->pri);	
-				task_temp = tlist->start;
-				//printf(" i:%c i->next:%c  \n",i->pri, task_temp->pri);	
-				while (task_temp->next !=NULL) {
-					printf ("tt pri: %c \n",task_temp->pri);
-					task_temp = task_temp->next;
-					char ch;
-					scanf("%c",&ch);
-				}
-				
-			} else {
-				printf(" léptet ");
-				elozo_i = i;
-				i = i->next;
-				//ha i->next == NULL, i = null
-				char ch;
-				scanf("%c",&ch);
-			}	
-		}
-		tlist->end = i;
-		t_task *task_temp = tlist->start;
-		//printf(" i:%c i->next:%c  \n",i->pri, task_temp->pri);	
-		while (task_temp->next !=NULL) {
-			printf ("tt pri: %c \n",task_temp->pri);
-			task_temp = task_temp->next;
-			char ch;
-			scanf("%c",&ch);
+		/*
+		kód
+		*/	
 		}
 	}
-	//free(tmp->next);
-	//free (tmp);
 	list();
 }
 //---------------------------------------------------------
